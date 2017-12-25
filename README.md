@@ -1,4 +1,4 @@
-# upnp-dlna-player
+# LeanPlayer
 
 
 
