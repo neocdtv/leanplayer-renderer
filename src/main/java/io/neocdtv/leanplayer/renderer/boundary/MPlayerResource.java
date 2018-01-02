@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package io.neocdtv.leanplayer.renderer.boundary;
 
 import io.neocdtv.leanplayer.renderer.Constants;
 import io.neocdtv.leanplayer.renderer.control.MPlayerEventsHandler;
 import io.neocdtv.player.core.mplayer.MPlayer;
+import io.swagger.annotations.Api;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -26,8 +22,9 @@ import javax.ws.rs.core.MediaType;
  * @author xix
  * @since 22.12.17
  */
+@Api
 @ApplicationScoped
-@Path(Constants.PATH_BASE_REST)
+@Path(Constants.PATH_BASE_CONTROL)
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class MPlayerResource {
@@ -47,6 +44,7 @@ public class MPlayerResource {
 
   @GET
   @Path(PATH_PLAYER_PLAY)
+  // TODO: can I add similar description to queryparam, like operationId in method in swagger
   public void play(@QueryParam(QUERY_PARAM_URL) String url) {
     renderer.play(url);
   }

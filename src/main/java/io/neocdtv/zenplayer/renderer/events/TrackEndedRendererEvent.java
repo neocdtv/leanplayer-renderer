@@ -6,8 +6,10 @@
 package io.neocdtv.zenplayer.renderer.events;
 
 /**
+ * TrackEndedRendererEvent.
  *
  * @author xix
+ * @since 22.12.17
  */
 public class TrackEndedRendererEvent {
 }

@@ -1,12 +1,16 @@
 package io.neocdtv.leanplayer.renderer;
 
 /**
- * Created by xix on 21.12.17.
+ * Constants.
+ *
+ * @author xix
+ * @since 22.12.17
  */
 public class Constants {
 
-  public static final String PATH_BASE_EVENTS = "events";
+  public static final String PATH_EVENTS = "events";
   public static final String PATH_BASE_REST = "rs";
+  public static final String PATH_BASE_CONTROL = "control";
   public static final String PATH_STATIC = "static";
 
   public static final String NETWORK_HOST = "localhost";
@@ -18,5 +22,4 @@ public class Constants {
   public static final String JETTY_LOG_LEVEL = "org.eclipse.jetty.LEVEL";
   public static final String JETTY_LOGGER = "org.eclipse.jetty.util.log.class";
   public static final String JETTY_LOGGER_CLASS = "org.eclipse.jetty.util.log.StdErrLo";
-
 }

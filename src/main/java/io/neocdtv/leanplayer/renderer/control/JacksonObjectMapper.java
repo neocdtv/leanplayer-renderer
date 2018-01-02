@@ -19,7 +19,8 @@ public class JacksonObjectMapper {
 
     private static ObjectMapper objectMapperWithType;
     private static ObjectMapper objectMapperWithoutType;
-    
+
+    // TODO: generate type/class-attribute without package
     public static ObjectMapper getInstanceWithType() {
         if (objectMapperWithType == null) {
             objectMapperWithType = buildBaseMapper();

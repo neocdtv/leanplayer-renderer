@@ -29,16 +29,17 @@ import java.util.logging.Logger;
  * @author xix
  * @since 22.12.17
  */
-public class LeanPlayerMain {
+public class LeanPlayerRendererMain {
 
-	private static final Logger LOGGER = Logger.getLogger(LeanPlayerMain.class.getName());
-	private static int NETWORK_PORT;
+	private static final Logger LOGGER = Logger.getLogger(LeanPlayerRendererMain.class.getName());
+	public static int NETWORK_PORT;
 
 	public static void main(String[] args) throws Exception {
 
 		discoverFreeNetworkPort();
 		configureJettyLogLevel();
 		Server server = new Server(NETWORK_PORT);
+
 		WebAppContext context = configureWebContext(server);
 
 		configureCdi(context);
@@ -49,12 +50,16 @@ public class LeanPlayerMain {
 
 		server.start();
 		printUrls();
+		// TODO: send notify
+		// TODO: wait for discovery
 		server.join();
 	}
 
 	private static void discoverFreeNetworkPort() throws IOException {
 		final ServerSocket socket = new ServerSocket(0);
-		NETWORK_PORT = socket.getLocalPort();
+    socket.setReuseAddress(true);
+    NETWORK_PORT = socket.getLocalPort();
+    socket.close();
 	}
 
 	private static void configureJettyLogLevel() {
@@ -136,7 +141,7 @@ public class LeanPlayerMain {
 		final String websocketUrlInfo = String.format("WebSocket connection available at - ws://%s%s%s",
 				getHost(),
 				Constants.CONTEXT_PATH,
-				Constants.PATH_BASE_EVENTS);
+				Constants.PATH_EVENTS);
 		LOGGER.info("\n" + applicationUrlInfo + "\n" + swaggerUrlInfo + "\n" + websocketUrlInfo);
 	}
 }

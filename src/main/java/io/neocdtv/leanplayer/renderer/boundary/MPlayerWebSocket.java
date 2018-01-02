@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package io.neocdtv.leanplayer.renderer.boundary;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -35,7 +30,7 @@ import java.util.Set;
  * @since 22.12.17
  */
 @ApplicationScoped
-@ServerEndpoint(value = "/" + Constants.PATH_BASE_EVENTS)
+@ServerEndpoint(value = "/" + Constants.PATH_EVENTS)
 public class MPlayerWebSocket {
   
   private static final Logger LOGGER = LoggerFactory.getLogger(MPlayerWebSocket.class);
@@ -52,7 +47,6 @@ public class MPlayerWebSocket {
   public void onClose(final Session session, CloseReason closeReason) {
     LOGGER.info("removing session '{}', reason '{}'", session.getId());
     SESSIONS.remove(session);
-    // TODO: do you need this?
   }
   
   @OnError
