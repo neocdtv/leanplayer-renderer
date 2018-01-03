@@ -51,7 +51,7 @@ public class LeanPlayerRendererMain {
 		server.start();
 		printUrls();
 		// TODO: send notify
-		// TODO: wait for discovery
+		// TODO: wait for discovery and response
 		server.join();
 	}
 
