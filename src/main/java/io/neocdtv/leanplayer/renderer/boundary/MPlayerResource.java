@@ -22,7 +22,7 @@ import javax.ws.rs.core.MediaType;
  * @author xix
  * @since 22.12.17
  */
-@Api
+
 @ApplicationScoped
 @Path(Constants.PATH_BASE_CONTROL)
 @Produces(MediaType.APPLICATION_JSON)

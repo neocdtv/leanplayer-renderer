@@ -11,5 +11,5 @@ package io.neocdtv.zenplayer.renderer.events;
  * @author xix
  * @since 22.12.17
  */
-public class TrackEndedRendererEvent {
+public class TrackEndedRendererEvent implements Event {
 }
