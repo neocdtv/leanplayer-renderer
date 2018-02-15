@@ -5,7 +5,6 @@
  */
 package io.neocdtv.leanplayer.renderer;
 
-import io.neocdtv.UpnpDiscoveryLite;
 import io.neocdtv.UpnpDiscoveryResponseLite;
 import io.neocdtv.UpnpNotifyLite;
 import io.neocdtv.constants.UpnpHelper;
@@ -56,7 +55,7 @@ public class LeanPlayerRendererMain {
     server.start();
     printUrls();
     UpnpNotifyLite.startIt(UUID, getBaseUrl());
-    //UpnpDiscoveryResponseLite.startIt(UUID, getHost());
+    UpnpDiscoveryResponseLite.startIt(UUID, getHost());
     // TODO: wait for discovery and response
     // TODO: what about device discovery on multiple interfaces
     // TODO: add a resource, which returns json schema of all subclasses of io.neocdtv.zenplayer.renderer.events.Event
@@ -142,7 +141,7 @@ public class LeanPlayerRendererMain {
     final String applicationUrlInfo = String.format("Web application available at %s://%s",
         Constants.NETWORK_PROTOCOL_HTTP,
         getBaseUrl());
-    final String swaggerUrlInfo = String.format("Swagger available at %s://%s/swagger.json",
+    final String swaggerUrlInfo = String.format("Swagger available at %s://%s/%s/swagger.json",
         Constants.NETWORK_PROTOCOL_HTTP,
         getBaseUrl(),
         Constants.PATH_BASE_REST);
