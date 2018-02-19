@@ -14,6 +14,7 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.eclipse.jetty.websocket.jsr356.server.deploy.WebSocketServerContainerInitializer;
+import org.glassfish.jersey.filter.LoggingFilter;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
 import org.jboss.weld.environment.servlet.Listener;
@@ -90,6 +91,7 @@ public class LeanPlayerRendererMain {
   private static ResourceConfig configureJersey() {
     ResourceConfig config = new ResourceConfig();
     config.packages(Constants.RESOURCE_PACKAGE);
+    config.register(LoggingFilter.class);
     return config;
   }
 
