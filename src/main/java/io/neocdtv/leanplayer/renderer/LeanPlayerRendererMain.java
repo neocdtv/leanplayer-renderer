@@ -9,6 +9,7 @@ import io.neocdtv.UpnpDiscoveryResponseLite;
 import io.neocdtv.UpnpNotifyLite;
 import io.neocdtv.constants.UpnpHelper;
 import io.neocdtv.leanplayer.renderer.boundary.MPlayerWebSocket;
+import io.neocdtv.service.UrlBuilder;
 import io.swagger.jaxrs.config.BeanConfig;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -132,7 +133,7 @@ public class LeanPlayerRendererMain {
   }
 
   private static String getHost() {
-    return String.format("%s:%s", Constants.NETWORK_HOST, NETWORK_PORT);
+    return String.format("%s:%s", UrlBuilder.getIpV4Address(), NETWORK_PORT);
   }
 
   private static String getResourcePath() {

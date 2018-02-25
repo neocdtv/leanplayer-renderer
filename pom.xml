@@ -33,6 +33,11 @@
       <artifactId>player-core</artifactId>
       <version>0.2</version>
     </dependency>
+    <dependency>
+      <groupId>io.neocdtv</groupId>
+      <artifactId>StreamingService</artifactId>
+      <version>0.6</version>
+    </dependency>
     <!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
     <!-- spring-core is used to be able to serve static content from jar and from IDE see ClassPathResource usage in Main-->
     <dependency>
