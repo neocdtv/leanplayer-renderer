@@ -20,8 +20,14 @@ public class MPlayerEventsHandler implements PlayerEventsHandler {
   @Inject
   private Event<TrackEndedRendererEvent> streamEndedEvent;
 
+  @Override
   public void onTrackEnded() {
     LOGGER.info("throwing event...");
     streamEndedEvent.fire(new TrackEndedRendererEvent());
+  }
+
+  @Override
+  public void onStaringPlayback() {
+
   }
 }

@@ -17,8 +17,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Logger;
 
 
@@ -51,19 +49,22 @@ public class MPlayerResource {
 
   @GET
   @Path(PATH_PLAYER_PLAY)
-  // TODO: can I add similar description to queryparam, like operationId in method in swagger
-  public void play(@QueryParam(QUERY_PARAM_URL) String url) throws MalformedURLException, UnsupportedEncodingException {
+  public void play(@QueryParam(QUERY_PARAM_URL) String url) throws MalformedURLException, UnsupportedEncodingException, InterruptedException {
     LOGGER.info("Query Param Url: " + url);
     String forPlay = buildUrl(url);
     renderer.play(forPlay);
   }
 
-  // TODO: pretty ugly,
-  private String buildUrl(@QueryParam(QUERY_PARAM_URL) String url) throws MalformedURLException, UnsupportedEncodingException {
-    final URL asUrl = new URL(url);
-    String resource = asUrl.getQuery().replaceFirst("resource=", "");
-    String encodeResource = URLEncoder.encode(resource, "UTF-8");
-    return String.format("%s://%s:%s%s?resource=%s", asUrl.getProtocol(), asUrl.getHost(), asUrl.getPort(), asUrl.getPath(), encodeResource);
+  // TODO: pretty ugly, do something about it
+  private String buildUrl(final String url) throws MalformedURLException, UnsupportedEncodingException {
+    if (url.contains("resource")) {
+      final URL asUrl = new URL(url);
+      String resource = asUrl.getQuery().replaceFirst("resource=", "");
+      String encodeResource = URLEncoder.encode(resource, "UTF-8");
+      return String.format("%s://%s:%s%s?resource=%s", asUrl.getProtocol(), asUrl.getHost(), asUrl.getPort(), asUrl.getPath(), encodeResource);
+    } else {
+      return url;
+    }
   }
 
   @GET
@@ -76,18 +77,5 @@ public class MPlayerResource {
   @Path(PATH_PLAYER_PAUSE)
   public void pause() {
     renderer.pause();
-  }
-
-  private Map<String, String> getQueryMap(String query)
-  {
-    String[] params = query.split("&");
-    Map<String, String> map = new HashMap<String, String>();
-    for (String param : params)
-    {
-      String name = param.split("=")[0];
-      String value = param.split("=")[1];
-      map.put(name, value);
-    }
-    return map;
   }
 }
