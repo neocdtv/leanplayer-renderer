@@ -26,6 +26,7 @@ import javax.websocket.DeploymentException;
 import javax.websocket.server.ServerContainer;
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -58,11 +59,10 @@ public class LeanPlayerRendererMain {
     printUrls();
     UpnpNotifyLite.startIt(UUID, getBaseUrl());
     UpnpDiscoveryResponseLite.startIt(UUID, getHost());
-    // TODO: wait for discovery and response
     // TODO: what about device discovery on multiple interfaces
     // TODO: add a resource, which returns json schema of all subclasses of io.neocdtv.zenplayer.renderer.events.Event
-    // TODO: add health check service
-    // TODO: add service to get PlayerState
+    // TODO: add health check service - what for?
+    // TODO: add service to get PlayerState - in case a player starts and wants for know the current status
     server.join();
   }
 
@@ -74,7 +74,7 @@ public class LeanPlayerRendererMain {
   }
 
   private static void configureJettyLogLevel() {
-    System.setProperty(Constants.JETTY_LOG_LEVEL, "INFO");
+    System.setProperty(Constants.JETTY_LOG_LEVEL, Level.INFO.getName());
     System.setProperty(Constants.JETTY_LOGGER, Constants.JETTY_LOGGER_CLASS);
   }
 
@@ -127,6 +127,8 @@ public class LeanPlayerRendererMain {
     ServerContainer webSocketContainer = WebSocketServerContainerInitializer.configureContext(context);
     webSocketContainer.addEndpoint(MPlayerWebSocket.class);
   }
+
+  // TODO: refactor this somehow, it's ugly
 
   private static String getBasePath() {
     return String.format("/%s", Constants.PATH_BASE_REST);

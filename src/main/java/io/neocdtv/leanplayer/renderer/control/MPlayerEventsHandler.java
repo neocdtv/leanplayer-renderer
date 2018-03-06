@@ -28,6 +28,6 @@ public class MPlayerEventsHandler implements PlayerEventsHandler {
 
   @Override
   public void onStaringPlayback() {
-
+    LOGGER.info("doing nothing...");
   }
 }
