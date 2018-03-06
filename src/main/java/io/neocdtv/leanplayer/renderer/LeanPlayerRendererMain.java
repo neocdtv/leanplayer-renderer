@@ -7,7 +7,7 @@ package io.neocdtv.leanplayer.renderer;
 
 import io.neocdtv.UpnpDiscoveryResponseLite;
 import io.neocdtv.UpnpNotifyLite;
-import io.neocdtv.constants.UpnpHelper;
+import io.neocdtv.UpnpHelper;
 import io.neocdtv.leanplayer.renderer.boundary.MPlayerWebSocket;
 import io.neocdtv.service.UrlBuilder;
 import io.swagger.jaxrs.config.BeanConfig;
