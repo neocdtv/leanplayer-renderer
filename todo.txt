@@ -1,0 +1,3 @@
+- implement check on startup if mplayer or omxplayer are available?
+    this may decrease startup time
+- add upnp event on device shutdown (ssdp: bye bye)
