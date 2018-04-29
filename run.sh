@@ -1,2 +1,2 @@
 #!/bin/sh
-java -jar target/leanplayer-renderejar
+java -jar target/leanplayer-renderer.jar
