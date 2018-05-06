@@ -33,27 +33,28 @@ import java.util.logging.Logger;
 public class LeanPlayerRendererMain {
 
   private static final Logger LOGGER = Logger.getLogger(LeanPlayerRendererMain.class.getName());
-  public static int NETWORK_PORT;
-  private static String UUID = UpnpHelper.buildUuid();
+  private int networkPort;
+  private String uuid = UpnpHelper.buildUuid();
 
   public static void main(String[] args) throws Exception {
+    final LeanPlayerRendererMain leanPlayerRendererMain = new LeanPlayerRendererMain();
 
-    discoverFreeNetworkPort();
-    configureJettyLogLevel();
-    Server server = new Server(NETWORK_PORT);
+    leanPlayerRendererMain.discoverFreeNetworkPort();
+    leanPlayerRendererMain.configureJettyLogLevel();
+    Server server = new Server(leanPlayerRendererMain.networkPort);
 
-    WebAppContext context = configureWebContext(server);
+    WebAppContext context = leanPlayerRendererMain.configureWebContext(server);
 
-    configureCdi(context);
-    final ResourceConfig jerseyConfig = configureJersey();
-    configureSwagger(jerseyConfig);
-    configureServlet(context, jerseyConfig);
-    configureWebSocket(context);
+    leanPlayerRendererMain.configureCdi(context);
+    final ResourceConfig jerseyConfig = leanPlayerRendererMain.configureJersey();
+    leanPlayerRendererMain.configureSwagger(jerseyConfig);
+    leanPlayerRendererMain.configureServlet(context, jerseyConfig);
+    leanPlayerRendererMain.configureWebSocket(context);
 
     server.start();
-    printUrls();
-    UpnpNotifyLite.startIt(UUID, getBaseUrl());
-    UpnpDiscoveryResponseLite.startIt(UUID, getHost());
+    leanPlayerRendererMain.printUrls();
+    UpnpNotifyLite.startIt(leanPlayerRendererMain.uuid, leanPlayerRendererMain.getBaseUrl());
+    UpnpDiscoveryResponseLite.startIt(leanPlayerRendererMain.uuid, leanPlayerRendererMain.getHost());
     // TODO: what about device discovery on multiple interfaces
     // TODO: add a resource, which returns json schema of all subclasses of io.neocdtv.zenplayer.renderer.events.Event
     // TODO: add health check service - what for?
@@ -61,19 +62,19 @@ public class LeanPlayerRendererMain {
     server.join();
   }
 
-  private static void discoverFreeNetworkPort() throws IOException {
+  private void discoverFreeNetworkPort() throws IOException {
     final ServerSocket socket = new ServerSocket(0);
     socket.setReuseAddress(true);
-    NETWORK_PORT = socket.getLocalPort();
+    networkPort = socket.getLocalPort();
     socket.close();
   }
 
-  private static void configureJettyLogLevel() {
+  private void configureJettyLogLevel() {
     System.setProperty(Constants.JETTY_LOG_LEVEL, Level.INFO.getName());
     System.setProperty(Constants.JETTY_LOGGER, Constants.JETTY_LOGGER_CLASS);
   }
 
-  private static WebAppContext configureWebContext(Server server) throws IOException {
+  private WebAppContext configureWebContext(Server server) throws IOException {
     WebAppContext context = new WebAppContext();
     context.setContextPath(Constants.CONTEXT_PATH);
 
@@ -84,14 +85,14 @@ public class LeanPlayerRendererMain {
     return context;
   }
 
-  private static ResourceConfig configureJersey() {
+  private ResourceConfig configureJersey() {
     ResourceConfig config = new ResourceConfig();
     config.packages(Constants.RESOURCE_PACKAGE);
     config.register(LoggingFilter.class);
     return config;
   }
 
-  private static void configureSwagger(ResourceConfig config) {
+  private void configureSwagger(ResourceConfig config) {
 
     config.register(io.swagger.jaxrs.listing.ApiListingResource.class);
     config.register(io.swagger.jaxrs.listing.SwaggerSerializers.class);
@@ -106,38 +107,38 @@ public class LeanPlayerRendererMain {
 
   }
 
-  private static void configureServlet(WebAppContext context, ResourceConfig jerseyConfig) {
+  private void configureServlet(WebAppContext context, ResourceConfig jerseyConfig) {
     ServletHolder servlet = new ServletHolder(new ServletContainer(jerseyConfig));
     context.addServlet(servlet, getResourcePath());
   }
 
-  private static void configureCdi(WebAppContext context) {
+  private void configureCdi(WebAppContext context) {
     Listener listener = new Listener();
     context.addEventListener(listener);
     // 18.3.2.2. Binding BeanManager to JNDI, is JDNI by default enabled on jetty?
     //context.addEventListener(new BeanManagerResourceBindingListener());
   }
 
-  private static void configureWebSocket(WebAppContext context) throws ServletException, DeploymentException {
+  private void configureWebSocket(WebAppContext context) throws ServletException, DeploymentException {
     ServerContainer webSocketContainer = WebSocketServerContainerInitializer.configureContext(context);
     webSocketContainer.addEndpoint(MPlayerWebSocket.class);
   }
 
   // TODO: refactor this somehow, it's ugly
 
-  private static String getBasePath() {
+  private String getBasePath() {
     return String.format("/%s", Constants.PATH_BASE_REST);
   }
 
-  private static String getHost() {
-    return String.format("%s:%s", UrlBuilder.getIpV4Address(), NETWORK_PORT);
+  private String getHost() {
+    return String.format("%s:%s", UrlBuilder.getIpV4Address(), networkPort);
   }
 
-  private static String getResourcePath() {
+  private String getResourcePath() {
     return String.format("/%s/*", Constants.PATH_BASE_REST);
   }
 
-  private static void printUrls() {
+  private void printUrls() {
     final String applicationUrlInfo = String.format("Web application available at %s://%s",
         Constants.NETWORK_PROTOCOL_HTTP,
         getBaseUrl());
@@ -152,7 +153,7 @@ public class LeanPlayerRendererMain {
     LOGGER.info("\n" + applicationUrlInfo + "\n" + swaggerUrlInfo + "\n" + websocketUrlInfo);
   }
 
-  private static String getBaseUrl() {
+  private String getBaseUrl() {
     if (Constants.CONTEXT_PATH.equals("/")) {
       return getHost();
     } else {
