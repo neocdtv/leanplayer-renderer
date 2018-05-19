@@ -178,7 +178,7 @@ public class LeanPlayerRendererMain {
   }
 
   private String getHost(InetAddress inetAddress) {
-    return String.format("%s:%s", UrlBuilder.getIpV4Address(), networkPort);
+    return String.format("%s:%s", inetAddress.getHostAddress(), networkPort);
   }
 
   private String getResourcePath() {
