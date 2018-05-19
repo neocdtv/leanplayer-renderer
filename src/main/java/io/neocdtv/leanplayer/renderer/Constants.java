@@ -9,7 +9,7 @@ package io.neocdtv.leanplayer.renderer;
 public class Constants {
 
   public static final String PATH_EVENTS = "events";
-  public static final String PATH_BASE_REST = "api";
+  public static final String PATH_API_REST = "api";
   public static final String PATH_BASE_CONTROL = "control";
   public static final String PATH_STATIC = "static";
 

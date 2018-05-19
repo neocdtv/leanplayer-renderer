@@ -38,6 +38,12 @@
       <artifactId>streamingservice</artifactId>
       <version>0.7</version>
     </dependency>
+
+    <dependency>
+      <groupId>io.neocdtv</groupId>
+      <artifactId>commons-network</artifactId>
+      <version>0.2</version>
+    </dependency>
     <!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
     <!-- spring-core is used to be able to serve static content from jar and from IDE see ClassPathResource usage in Main-->
     <dependency>
@@ -105,6 +111,12 @@
       <groupId>org.eclipse.jetty.websocket</groupId>
       <artifactId>javax-websocket-server-impl</artifactId>
       <version>${jetty.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jmdns</groupId>
+      <artifactId>jmdns</artifactId>
+      <version>3.5.5-SNAPSHOT</version>
     </dependency>
 
   </dependencies>
