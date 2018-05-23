@@ -91,6 +91,7 @@ public class LeanPlayerRendererMain {
         }
       }
     }
+    throw new RuntimeException("Multi-Homed devices are not supported");
   }
 
   private void startDiscovery() throws IOException {
