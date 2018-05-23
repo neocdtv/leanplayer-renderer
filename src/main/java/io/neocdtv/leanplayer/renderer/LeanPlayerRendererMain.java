@@ -103,6 +103,7 @@ public class LeanPlayerRendererMain {
     props.put("events-location", "ws://" + baseUrl + "/events");
     props.put("control-location", "http://" + baseUrl + "/" + PATH_API_REST + "/control");
     props.put("uuid", uuid);
+    props.put("name", "Leanplayer Renderer");
     final ServiceInfo serviceInfo = ServiceInfo.create(SERVICE_TYPE, "Leanplayer Renderer", discoverFreeNetworkPort(), "Renderer");
     serviceInfo.setText(props);
     return serviceInfo;
