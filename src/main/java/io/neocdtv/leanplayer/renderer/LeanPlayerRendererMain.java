@@ -2,8 +2,6 @@ package io.neocdtv.leanplayer.renderer;
 
 import io.neocdtv.commons.network.NetworkUtil;
 import io.neocdtv.leanplayer.renderer.boundary.MPlayerWebSocket;
-import io.neocdtv.service.UrlBuilder;
-import io.neocdtv.upnp.discovery.UpnpHelper;
 import io.swagger.jaxrs.config.BeanConfig;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -28,6 +26,7 @@ import java.net.SocketException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -43,7 +42,7 @@ public class LeanPlayerRendererMain {
 
   private static final Logger LOGGER = Logger.getLogger(LeanPlayerRendererMain.class.getName());
   private static final String SERVICE_TYPE = "_leanplayer._tcp.local.";
-  private final String uuid = UpnpHelper.buildUuid();
+  private final String uuid = UUID.randomUUID().toString();
   private final NetworkUtil networkUtil = new NetworkUtil();
 
   private int networkPort;

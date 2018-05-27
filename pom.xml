@@ -25,18 +25,8 @@
   <dependencies>
     <dependency>
       <groupId>io.neocdtv</groupId>
-      <artifactId>upnp-dlna-playground-lite</artifactId>
-      <version>0.7</version>
-    </dependency>
-    <dependency>
-      <groupId>io.neocdtv</groupId>
       <artifactId>player-core</artifactId>
       <version>0.6</version>
-    </dependency>
-    <dependency>
-      <groupId>io.neocdtv</groupId>
-      <artifactId>streamingservice</artifactId>
-      <version>0.7</version>
     </dependency>
 
     <dependency>
