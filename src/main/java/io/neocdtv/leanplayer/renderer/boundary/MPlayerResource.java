@@ -2,6 +2,7 @@ package io.neocdtv.leanplayer.renderer.boundary;
 
 import io.neocdtv.leanplayer.renderer.Constants;
 import io.neocdtv.leanplayer.renderer.control.MPlayerEventsHandler;
+import io.neocdtv.player.core.mplayer.Amixer;
 import io.neocdtv.player.core.mplayer.MPlayer;
 
 import javax.annotation.PostConstruct;
@@ -44,7 +45,8 @@ public class MPlayerResource {
 
   @PostConstruct
   public void postConstruct() {
-    renderer = new MPlayer(eventsHandler);
+    renderer = new MPlayer(new Amixer("mplayerChannel"));
+    renderer.addPlayerEvent(eventsHandler);
   }
 
   @GET
