@@ -1,3 +1,4 @@
 - implement check on startup if mplayer or omxplayer are available?
     this may decrease startup time
 - fix next function - currently new mplayer is created and multiple tracks are playing
+- fix start on non-localhost interface
