@@ -53,7 +53,7 @@ public class LeanPlayerRendererMain {
 
     final LeanPlayerRendererMain leanPlayerRendererMain = new LeanPlayerRendererMain();
 
-    leanPlayerRendererMain.discoverInetAddress();
+    leanPlayerRendererMain.configureInetAddress();
     leanPlayerRendererMain.networkPort = leanPlayerRendererMain.discoverFreeNetworkPort();
     leanPlayerRendererMain.configureJettyLogLevel();
 
@@ -73,6 +73,15 @@ public class LeanPlayerRendererMain {
     leanPlayerRendererMain.printUrls();
     leanPlayerRendererMain.startDiscovery();
     server.join();
+  }
+
+  private void configureInetAddress() throws SocketException {
+    final String interfaceName = System.getProperty("if");
+    if (interfaceName == null) {
+      discoverInetAddress();
+    } else {
+      inetAddress = networkUtil.getIpv4AddressForInterface(interfaceName);
+    }
   }
 
   private void discoverInetAddress() throws SocketException {
