@@ -31,9 +31,9 @@ import java.util.Set;
  */
 @ApplicationScoped
 @ServerEndpoint(value = "/" + Constants.PATH_EVENTS)
-public class MPlayerWebSocket {
+public class PlayerWebSocket {
   
-  private static final Logger LOGGER = LoggerFactory.getLogger(MPlayerWebSocket.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(PlayerWebSocket.class);
   private static final Set<Session> SESSIONS = Collections.synchronizedSet(new HashSet<Session>());
 
   @OnOpen

@@ -1,7 +1,7 @@
 package io.neocdtv.leanplayer.renderer;
 
 import io.neocdtv.commons.network.NetworkUtil;
-import io.neocdtv.leanplayer.renderer.boundary.MPlayerWebSocket;
+import io.neocdtv.leanplayer.renderer.boundary.PlayerWebSocket;
 import io.swagger.jaxrs.config.BeanConfig;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -178,7 +178,7 @@ public class LeanPlayerRendererMain {
 
   private void configureWebSocket(WebAppContext context) throws ServletException, DeploymentException {
     ServerContainer webSocketContainer = WebSocketServerContainerInitializer.configureContext(context);
-    webSocketContainer.addEndpoint(MPlayerWebSocket.class);
+    webSocketContainer.addEndpoint(PlayerWebSocket.class);
   }
 
   // TODO: refactor this somehow, it's ugly

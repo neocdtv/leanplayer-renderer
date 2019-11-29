@@ -13,9 +13,9 @@ import java.util.logging.Logger;
  * @author xix
  * @since 22.12.17
  */
-public class MPlayerEventsHandler implements PlayerEventsHandler {
+public class LeanPlayerEventsHandler implements PlayerEventsHandler {
 
-  private final static Logger LOGGER = Logger.getLogger(MPlayerEventsHandler.class.getName());
+  private final static Logger LOGGER = Logger.getLogger(LeanPlayerEventsHandler.class.getName());
 
   @Inject
   private Event<TrackEndedRendererEvent> streamEndedEvent;

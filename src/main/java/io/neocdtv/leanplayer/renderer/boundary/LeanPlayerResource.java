@@ -1,9 +1,11 @@
 package io.neocdtv.leanplayer.renderer.boundary;
 
 import io.neocdtv.leanplayer.renderer.Constants;
-import io.neocdtv.leanplayer.renderer.control.MPlayerEventsHandler;
+import io.neocdtv.leanplayer.renderer.control.LeanPlayerEventsHandler;
+import io.neocdtv.player.core.Player;
 import io.neocdtv.player.core.mplayer.Amixer;
 import io.neocdtv.player.core.mplayer.MPlayer;
+import io.neocdtv.player.core.omxplayer.OmxPlayer;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -32,21 +34,31 @@ import java.util.logging.Logger;
 @Path(Constants.PATH_BASE_CONTROL)
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class MPlayerResource {
+public class LeanPlayerResource {
 
-  private final static Logger LOGGER = Logger.getLogger(MPlayerResource.class.getName());
+  private final static Logger LOGGER = Logger.getLogger(LeanPlayerResource.class.getName());
   private static final String QUERY_PARAM_URL = "url";
   private static final String PATH_PLAYER_PLAY = "/play";
   private final static String PATH_PLAYER_STOP = "/stop";
   private final static String PATH_PLAYER_PAUSE = "/pause";
-  private MPlayer renderer;
+
+  private Player player;
+
   @Inject
-  private MPlayerEventsHandler eventsHandler;
+  private LeanPlayerEventsHandler eventsHandler;
 
   @PostConstruct
   public void postConstruct() {
-    renderer = new MPlayer(new Amixer("mplayerChannel"));
-    renderer.addPlayerEvent(eventsHandler);
+    String playerType = System.getProperty("player");
+    if (playerType == null || playerType.equals("mplayer")) {
+      player = new MPlayer();
+      player.setAmixer(new Amixer("mplayerChannel"));
+    } else if (playerType.equals("omxplayer")) {
+      player = new OmxPlayer();
+    } else {
+      throw new RuntimeException("cant determine player");
+    }
+    player.setPlayerEvent(eventsHandler);
   }
 
   @GET
@@ -54,7 +66,7 @@ public class MPlayerResource {
   public void play(@QueryParam(QUERY_PARAM_URL) String url) throws MalformedURLException, UnsupportedEncodingException, InterruptedException {
     LOGGER.info("Query Param Url: " + url);
     String forPlay = buildUrl(url);
-    renderer.play(forPlay);
+    player.play(forPlay);
   }
 
   // TODO: pretty ugly, do something about it
@@ -72,12 +84,12 @@ public class MPlayerResource {
   @GET
   @Path(PATH_PLAYER_STOP)
   public void stop() {
-    renderer.stop();
+    player.stop();
   }
 
   @GET
   @Path(PATH_PLAYER_PAUSE)
   public void pause() {
-    renderer.pause();
+    player.pause();
   }
 }
