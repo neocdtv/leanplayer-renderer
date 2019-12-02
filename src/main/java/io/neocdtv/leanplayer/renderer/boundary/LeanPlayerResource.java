@@ -20,6 +20,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Logger;
 
 
@@ -50,6 +53,7 @@ public class LeanPlayerResource {
   @PostConstruct
   public void postConstruct() {
     String playerType = System.getProperty("player");
+    List<String> additionalParams = convertParams(System.getProperty("params"));
     if (playerType == null || playerType.equals("mplayer")) {
       player = new MPlayer();
       player.setAmixer(new Amixer("mplayerChannel"));
@@ -58,7 +62,16 @@ public class LeanPlayerResource {
     } else {
       throw new RuntimeException("cant determine player");
     }
-    player.setPlayerEvent(eventsHandler);
+    player.setPlayerEventHandler(eventsHandler);
+    player.setAdditionalParameters(additionalParams);
+  }
+
+  List<String> convertParams(final String paramsAsString) {
+    ArrayList<String> params = new ArrayList<>();
+    if (paramsAsString != null) {
+      params.addAll(Arrays.asList(paramsAsString.trim().split("\\s+")));
+    }
+    return params;
   }
 
   @GET
