@@ -23,7 +23,7 @@
     <jmdns.version>3.5.5</jmdns.version>
     <player-core.version>1.2</player-core.version>
     <commons-network.version>0.3</commons-network.version>
-    <junit.version>4.11</junit.version>
+    <junit.version>4.13.1</junit.version>
     <spring-core.version>5.0.2.RELEASE</spring-core.version>
   </properties>
 
